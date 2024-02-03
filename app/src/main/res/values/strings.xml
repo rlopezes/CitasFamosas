@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Citas famosas</string>
-    <string name="cita1">La forma de empezar es dejar de hablar y empezar a hacer.</string>
+    <string name="cita1">La forma de empezar es dejar de hablar y empezar a hacer</string>
     <string name="autor1">Walt Disney</string>
-    <string name="cita2">La vida es lo que sucede cuando estás ocupado haciendo otros planes.</string>
+    <string name="cita2">La vida es lo que sucede cuando estás ocupado haciendo otros planes</string>
     <string name="autor2">John Lennon</string>
-    <string name="cita">\" %s\"</string>
+    <string name="cita">\" .%s\"</string>
     <string name="autor">Autor: %s</string>
     <string name="boton_espandir_descripcion">Ver más información sobre el autor</string>
 </resources>
