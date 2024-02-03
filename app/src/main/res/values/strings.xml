@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Citas famosas</string>
+    <string name="cita1">La forma de empezar es dejar de hablar y empezar a hacer.</string>
+    <string name="autor1">Walt Disney</string>
+    <string name="cita2">La vida es lo que sucede cuando estás ocupado haciendo otros planes.</string>
+    <string name="autor2">John Lennon</string>
+    <string name="cita">\" %s\"</string>
+    <string name="autor">Autor: %s</string>
+    <string name="boton_espandir_descripcion">Ver más información sobre el autor</string>
+</resources>
+<!-- https://www.lavanguardia.com/vivo/psicologia/20220313/8120057/20-frases-mas-famosas-historia-humanidad-nbs.html -->
