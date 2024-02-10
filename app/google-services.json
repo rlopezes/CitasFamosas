@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "333661415562",
+    "project_id": "citasfamosas-paloma24",
+    "storage_bucket": "citasfamosas-paloma24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333661415562:android:4ac3a30a2e09f3a6f8a573",
+        "android_client_info": {
+          "package_name": "com.example.citasfamosas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWTJnKCBmZSpJg1nkUkMeHjgT7tIHR0ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333661415562:android:3686345012785da8f8a573",
+        "android_client_info": {
+          "package_name": "com.example.pruebafirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWTJnKCBmZSpJg1nkUkMeHjgT7tIHR0ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

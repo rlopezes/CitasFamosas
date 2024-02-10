@@ -1,6 +1,7 @@
 package com.example.citasfamosas
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateColorAsState
@@ -21,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -44,11 +46,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import coil.compose.AsyncImage
 import com.example.citasfamosas.model.Cita
 import com.example.citasfamosas.datasource.DataSource
 import com.example.citasfamosas.ui.theme.CitasFamosasTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -67,6 +71,9 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitasFamosasApp() {
+
+    var listaCitas by remember { mutableStateOf(listOf<Cita>()) }
+
     Scaffold(
         //CABECERA
         topBar = {
@@ -75,7 +82,10 @@ fun CitasFamosasApp() {
         //CUERPO
         content = {
             LazyColumn(contentPadding = it) {
-                items( DataSource().getCitas() ) {
+                //Recuperamos las citas y las guardamos en listaCitas
+                DataSource().getCitas { listaCitas = it }
+
+                items( listaCitas ) {
                     CitaTarjeta(
                         cita = it,
                         modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
@@ -138,7 +148,7 @@ fun CitaTarjeta(
         ) {
             Row() {
                 Text(
-                    text = stringResource(R.string.cita, stringResource(cita.frase)),
+                    text = stringResource(R.string.cita, cita.frase),
                     style = MaterialTheme.typography.displayMedium,
                     modifier = Modifier
                         .padding(dimensionResource(R.dimen.padding_small))
@@ -181,8 +191,9 @@ private fun CitaAutor(cita: Cita, modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(cita.imagen),
+
+        AsyncImage(
+            model = cita.imagenUrl,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             alignment = Alignment.Center,
@@ -192,14 +203,15 @@ private fun CitaAutor(cita: Cita, modifier: Modifier = Modifier) {
         )
     }
     Text(
-        text = stringResource(R.string.autor, stringResource(cita.autor)),
+        text = stringResource(R.string.autor, cita.autor),
         style = MaterialTheme.typography.labelSmall,
         textAlign = TextAlign.Center,
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                top=dimensionResource(R.dimen.padding_small),
-                bottom=dimensionResource(R.dimen.padding_small))
+                top = dimensionResource(R.dimen.padding_small),
+                bottom = dimensionResource(R.dimen.padding_small)
+            )
     )
 }
 
