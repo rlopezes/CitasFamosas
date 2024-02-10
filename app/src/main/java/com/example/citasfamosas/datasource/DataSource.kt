@@ -1,8 +1,9 @@
-package com.example.citasfamosas.model
+package com.example.citasfamosas.datasource
 
 import com.example.citasfamosas.R
+import com.example.citasfamosas.model.Cita
 
-object DataSource {
+class DataSource {
 
     fun getCitas(): List<Cita> {
         //Devuelve la lista de citas
