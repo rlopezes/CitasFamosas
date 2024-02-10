@@ -5,6 +5,8 @@ import com.example.citasfamosas.model.Cita
 
 class DataSource {
 
+    //Acceso a firebase
+
     fun getCitas(): List<Cita> {
         //Devuelve la lista de citas
         return listOf(
