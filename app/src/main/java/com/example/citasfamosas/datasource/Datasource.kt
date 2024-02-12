@@ -8,7 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 /**
  * Clase que implementa el acceso a una base de datos Firebase
  */
-class DataSource {
+class Datasource {
 
     //TAG del Log
     private val TAG = "DataSource"

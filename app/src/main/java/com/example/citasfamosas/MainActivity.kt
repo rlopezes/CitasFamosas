@@ -27,7 +27,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.citasfamosas.datasource.DataSource
+import com.example.citasfamosas.datasource.Datasource
 import com.example.citasfamosas.model.Cita
 import com.example.citasfamosas.ui.theme.CitasFamosasTheme
 
@@ -65,7 +65,7 @@ fun CitasFamosasApp() {
         content = {
             LazyColumn(contentPadding = it) {
                 //Obtenemos las citas y las guardamos en la variable listaCitas
-                DataSource().getCitas { listaCitas = it }
+                Datasource().getCitas { listaCitas = it }
 
                 //Para cada cita de la lista creamos una tarjeta que muestre su información
                 items( listaCitas ) {
