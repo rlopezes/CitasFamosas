@@ -1,33 +1,17 @@
 package com.example.citasfamosas
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -39,16 +23,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import coil.compose.AsyncImage
-import com.example.citasfamosas.model.Cita
 import com.example.citasfamosas.datasource.DataSource
+import com.example.citasfamosas.model.Cita
 import com.example.citasfamosas.ui.theme.CitasFamosasTheme
 
 class MainActivity : ComponentActivity() {
@@ -72,6 +52,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun CitasFamosasApp() {
 
+    //Creamos una lista de citas mutable y remember
+    //de esta manera al cambiar su valor se actualizará el interfaz
     var listaCitas by remember { mutableStateOf(listOf<Cita>()) }
 
     Scaffold(
@@ -82,11 +64,12 @@ fun CitasFamosasApp() {
         //CUERPO
         content = {
             LazyColumn(contentPadding = it) {
-                //Recuperamos las citas y las guardamos en listaCitas
+                //Obtenemos las citas y las guardamos en la variable listaCitas
                 DataSource().getCitas { listaCitas = it }
 
+                //Para cada cita de la lista creamos una tarjeta que muestre su información
                 items( listaCitas ) {
-                    CitaTarjeta(
+                    TarjetaCita(
                         cita = it,
                         modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
                     )
@@ -121,103 +104,10 @@ fun CitasBarraSuperior(modifier: Modifier = Modifier) {
     )
 }
 
-@Composable
-fun CitaTarjeta(
-    cita: Cita,
-    modifier: Modifier = Modifier
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    val color by animateColorAsState(
-        targetValue = if (expanded) MaterialTheme.colorScheme.tertiaryContainer
-        else MaterialTheme.colorScheme.secondaryContainer
-    )
-
-    Card(modifier = modifier
-        .clip(MaterialTheme.shapes.medium) //Valor por defecto
-    ) {
-        Column(
-            modifier = Modifier
-                .animateContentSize(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioLowBouncy,
-                        stiffness = Spring.StiffnessMedium
-                    )
-                )
-                .background(color = color)
-        ) {
-            Row() {
-                Text(
-                    text = stringResource(R.string.cita, cita.frase),
-                    style = MaterialTheme.typography.displayMedium,
-                    modifier = Modifier
-                        .padding(dimensionResource(R.dimen.padding_small))
-                        .weight(1f)
-                )
-                CitaBoton(
-                    expanded = expanded,
-                    onClick = { expanded = !expanded }
-                )
-            }
-
-            if (expanded) {
-                CitaAutor(cita, modifier)
-            }
-        }
-    }
-}
-
-@Composable
-private fun CitaBoton(
-    expanded: Boolean,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    IconButton(
-        onClick = onClick,
-        modifier = modifier
-    ) {
-        Icon(
-            imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-            contentDescription = stringResource(R.string.boton_espandir_descripcion),
-            tint = MaterialTheme.colorScheme.secondary
-        )
-    }
-}
-
-@Composable
-private fun CitaAutor(cita: Cita, modifier: Modifier = Modifier) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-
-        AsyncImage(
-            model = cita.imagenUrl,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            alignment = Alignment.Center,
-            modifier = modifier
-                .size(dimensionResource(R.dimen.image_size))
-                .clip(MaterialTheme.shapes.small)
-        )
-    }
-    Text(
-        text = stringResource(R.string.autor, cita.autor),
-        style = MaterialTheme.typography.labelSmall,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                top = dimensionResource(R.dimen.padding_small),
-                bottom = dimensionResource(R.dimen.padding_small)
-            )
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun CitasFamosasPreview() {
     CitasFamosasTheme {
         CitasFamosasApp()
     }
